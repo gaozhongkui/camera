@@ -25,6 +25,7 @@ import com.android.camera.one.v1.LegacyOneCameraManagerImpl;
 import com.android.camera.one.v1.LegacyOneCameraOpenerImpl;
 import com.android.camera.one.v2.Camera2OneCameraManagerImpl;
 import com.android.camera.one.v2.Camera2OneCameraOpenerImpl;
+import com.android.camera.util.ApiHelper;
 import com.google.common.base.Optional;
 
 /**
@@ -32,22 +33,26 @@ import com.google.common.base.Optional;
  * OneCamera objects.
  */
 public final class OneCameraModule {
-    private OneCameraModule() { }
+    private OneCameraModule() {
+    }
 
     /**
      * Creates a new camera manager that is based on Camera2 API, if available.
      *
      * @throws OneCameraException Thrown if an error occurred while trying to
-     *             access the camera.
+     *                            access the camera.
      */
     public static OneCameraOpener provideOneCameraOpener(
             OneCameraFeatureConfig featureConfig,
             Context context,
             ActiveCameraDeviceTracker activeCameraDeviceTracker,
             DisplayMetrics displayMetrics) throws OneCameraException {
-        Optional<OneCameraOpener> manager = Camera2OneCameraOpenerImpl.create(
-              featureConfig, context, activeCameraDeviceTracker, displayMetrics);
-        if (!manager.isPresent()) {
+        Optional<OneCameraOpener> manager = null;
+        if (ApiHelper.isLollipop()) {
+            manager = Camera2OneCameraOpenerImpl.create(
+                    featureConfig, context, activeCameraDeviceTracker, displayMetrics);
+        }
+        if (manager == null || !manager.isPresent()) {
             manager = LegacyOneCameraOpenerImpl.create();
         }
         if (!manager.isPresent()) {
@@ -60,16 +65,17 @@ public final class OneCameraModule {
      * Creates a new hardware manager that is based on Camera2 API, if available.
      *
      * @throws OneCameraException Thrown if an error occurred while trying to
-     *             access the camera which may occur when accessing the legacy
-     *             hardware manager.
+     *                            access the camera which may occur when accessing the legacy
+     *                            hardware manager.
      */
     public static OneCameraManager provideOneCameraManager() throws OneCameraException {
-        Optional<Camera2OneCameraManagerImpl> camera2HwManager = Camera2OneCameraManagerImpl
-              .create();
-        if (camera2HwManager.isPresent()) {
-            return camera2HwManager.get();
+        if (ApiHelper.isLollipop()) {
+            Optional<Camera2OneCameraManagerImpl> camera2HwManager = Camera2OneCameraManagerImpl
+                    .create();
+            if (camera2HwManager.isPresent()) {
+                return camera2HwManager.get();
+            }
         }
-
         Optional<LegacyOneCameraManagerImpl> legacyHwManager = LegacyOneCameraManagerImpl.instance();
         if (legacyHwManager.isPresent()) {
             return legacyHwManager.get();
