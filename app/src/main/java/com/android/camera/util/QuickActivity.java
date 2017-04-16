@@ -106,7 +106,7 @@ public abstract class QuickActivity extends Activity {
 
     @Override
     protected final void onCreate(Bundle bundle) {
-        mExecutionStartNanoTime = SystemClock.elapsedRealtimeNanos();
+        mExecutionStartNanoTime = AndroidContext.instance().elapsedRealtimeNanos();
         logLifecycle("onCreate", true);
         mStartupOnCreate = true;
         super.onCreate(bundle);

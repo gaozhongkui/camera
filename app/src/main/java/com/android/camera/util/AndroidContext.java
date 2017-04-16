@@ -17,6 +17,7 @@
 package com.android.camera.util;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 
 /**
@@ -24,6 +25,7 @@ import android.support.annotation.NonNull;
  * object instead of initializing each singleton separately.
  */
 public class AndroidContext {
+    private long mSinceBootTime;
     private static AndroidContext sInstance;
 
     /**
@@ -49,11 +51,24 @@ public class AndroidContext {
     }
 
     private final Context mContext;
+
     private AndroidContext(Context context) {
         mContext = context;
+        mSinceBootTime = System.nanoTime();
     }
 
     public Context get() {
         return mContext;
+    }
+
+    /**
+     * Returns nanoseconds since boot, including time spent in sleep.
+     */
+    public long elapsedRealtimeNanos() {
+        if (SystemVersionUtil.hasOSVersion17()) {
+            return SystemClock.elapsedRealtimeNanos();
+        } else {
+            return (System.nanoTime() - mSinceBootTime);
+        }
     }
 }
