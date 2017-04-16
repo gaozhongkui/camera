@@ -65,7 +65,7 @@ public class AndroidContext {
      * Returns nanoseconds since boot, including time spent in sleep.
      */
     public long elapsedRealtimeNanos() {
-        if (SystemVersionUtil.hasOSVersion17()) {
+        if (ApiHelper.isJellyBeanMr1()) {
             return SystemClock.elapsedRealtimeNanos();
         } else {
             return (System.nanoTime() - mSinceBootTime);

@@ -69,12 +69,12 @@ public class ApiHelper {
             && "shamu".equalsIgnoreCase(Build.DEVICE);
     public static final boolean IS_NEXUS_9 = "htc".equalsIgnoreCase(Build.MANUFACTURER)
             && ("flounder".equalsIgnoreCase(Build.DEVICE)
-                 || "flounder_lte".equalsIgnoreCase(Build.DEVICE));
+            || "flounder_lte".equalsIgnoreCase(Build.DEVICE));
 
     public static final boolean HAS_CAMERA_2_API = isLOrHigher();
 
     public static int getIntFieldIfExists(Class<?> klass, String fieldName,
-            Class<?> obj, int defaultVal) {
+                                          Class<?> obj, int defaultVal) {
         try {
             Field f = klass.getDeclaredField(fieldName);
             return f.getInt(obj);
@@ -92,11 +92,15 @@ public class ApiHelper {
     public static boolean isKitKatMR2OrHigher() {
         return isLOrHigher()
                 || (isKitKatOrHigher() &&
-                       ("4.4.4".equals(Build.VERSION.RELEASE) || "4.4.3".equals(Build.VERSION.RELEASE)));
+                ("4.4.4".equals(Build.VERSION.RELEASE) || "4.4.3".equals(Build.VERSION.RELEASE)));
     }
 
     public static boolean isLollipop() {
         return Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    public static boolean isJellyBeanMr1() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
 
     public static boolean isLOrHigher() {
