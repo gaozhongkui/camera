@@ -90,12 +90,12 @@ public class OneCameraCharacteristicsImpl implements OneCameraCharacteristics {
 
     @Override
     public Rect getSensorInfoActiveArraySize() {
-        throw new RuntimeException("Not implemented yet.");
+       return  new Rect();//throw new RuntimeException("Not implemented yet.");
     }
 
     @Override
     public float getAvailableMaxDigitalZoom() {
-        throw new RuntimeException("Not implemented yet.");
+        return 1;//throw new RuntimeException("Not implemented yet.");
     }
 
     @Override

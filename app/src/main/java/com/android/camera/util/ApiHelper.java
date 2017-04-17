@@ -16,6 +16,8 @@
 
 package com.android.camera.util;
 
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.os.Build;
 
 import java.lang.reflect.Field;
@@ -25,6 +27,13 @@ public class ApiHelper {
     private static final String X86ABI = "x86";
 
     public static final boolean AT_LEAST_16 = Build.VERSION.SDK_INT >= 16;
+
+    public static final boolean HAS_CAMERA_METERING_AREA =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+
+    public static final boolean HAS_CAMERA_FOCUS_AREA =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+
 
     public static final boolean HAS_APP_GALLERY =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
@@ -43,6 +52,7 @@ public class ApiHelper {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     public static final boolean HAS_ROBOTO_MEDIUM_FONT =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+
 
     public static final boolean HAS_CAMERA_HDR_PLUS = isKitKatOrHigher();
     public static final boolean HDR_PLUS_CAN_USE_ARBITRARY_ASPECT_RATIOS = isKitKatMR2OrHigher();
@@ -73,6 +83,10 @@ public class ApiHelper {
 
     public static final boolean HAS_CAMERA_2_API = isLOrHigher();
 
+
+    public static final boolean HAS_GET_CAMERA_DISABLED =
+            hasMethod(DevicePolicyManager.class, "getCameraDisabled", ComponentName.class);
+
     public static int getIntFieldIfExists(Class<?> klass, String fieldName,
                                           Class<?> obj, int defaultVal) {
         try {
@@ -96,7 +110,7 @@ public class ApiHelper {
     }
 
     public static boolean isLollipop() {
-        return Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     public static boolean isJellyBeanMr1() {
@@ -120,5 +134,26 @@ public class ApiHelper {
     public static boolean isMOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 || "MNC".equals(Build.VERSION.CODENAME);
+    }
+
+    private static boolean hasMethod(String className, String methodName,
+                                     Class<?>... parameterTypes) {
+        try {
+            Class<?> klass = Class.forName(className);
+            klass.getDeclaredMethod(methodName, parameterTypes);
+            return true;
+        } catch (Throwable th) {
+            return false;
+        }
+    }
+
+    private static boolean hasMethod(
+            Class<?> klass, String methodName, Class<?> ... paramTypes) {
+        try {
+            klass.getDeclaredMethod(methodName, paramTypes);
+            return true;
+        } catch (NoSuchMethodException e) {
+            return false;
+        }
     }
 }

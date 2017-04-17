@@ -17,7 +17,9 @@
 package com.android.camera.one.v1;
 
 import android.os.Handler;
+import android.util.Log;
 
+import com.android.camera.AppConfig;
 import com.android.camera.FatalErrorHandler;
 import com.android.camera.SoundPlayer;
 import com.android.camera.async.MainThread;
@@ -26,12 +28,17 @@ import com.android.camera.device.CameraId;
 import com.android.camera.one.OneCamera.OpenCallback;
 import com.android.camera.one.OneCameraCaptureSetting;
 import com.android.camera.one.OneCameraOpener;
+import com.android.camera.one.v1.util.CameraUtil;
 import com.android.camera.one.v2.photo.ImageRotationCalculator;
 import com.google.common.base.Optional;
+
 /**
  * The {@link com.android.camera.one.OneCameraOpener} implementation on top of the Camera API 1.
  */
 public class LegacyOneCameraOpenerImpl implements OneCameraOpener {
+    private static final String TAG = "LegacyOneCameraOpenerImpl";
+    private static final boolean DEBUG = AppConfig.DEBUG;
+
     public static Optional<OneCameraOpener> create() {
         OneCameraOpener cameraManager = new LegacyOneCameraOpenerImpl();
         return Optional.of(cameraManager);
@@ -53,6 +60,13 @@ public class LegacyOneCameraOpenerImpl implements OneCameraOpener {
             BurstFacade burstController,
             SoundPlayer soundPlayer,
             OpenCallback openCallback, FatalErrorHandler fatalErrorHandler) {
-        throw new RuntimeException("Not implemented yet.");
+        try {
+            CameraManager.CameraProxy mProxy= CameraUtil.openCamera(cameraId.getLegacyValue());
+
+        } catch (Exception e) {
+            if (DEBUG) {
+                Log.wtf(TAG, "open: ", e);
+            }
+        }
     }
 }
