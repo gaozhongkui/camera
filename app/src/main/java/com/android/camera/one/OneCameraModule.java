@@ -48,7 +48,7 @@ public final class OneCameraModule {
             ActiveCameraDeviceTracker activeCameraDeviceTracker,
             DisplayMetrics displayMetrics) throws OneCameraException {
         Optional<OneCameraOpener> manager = null;
-        // TODO: 2017/4/18 暂时注释掉
+        // TODO: gzk  2017/4/18 暂时注释掉
        /* if (ApiHelper.isLollipop()) {
             manager = Camera2OneCameraOpenerImpl.create(
                     featureConfig, context, activeCameraDeviceTracker, displayMetrics);

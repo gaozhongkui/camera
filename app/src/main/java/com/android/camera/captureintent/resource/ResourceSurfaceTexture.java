@@ -19,6 +19,7 @@ package com.android.camera.captureintent.resource;
 import com.android.camera.async.SafeCloseable;
 import com.android.camera.util.Size;
 
+import android.graphics.SurfaceTexture;
 import android.view.Surface;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -34,7 +35,7 @@ public interface ResourceSurfaceTexture extends SafeCloseable {
      *
      * @return A {@link Surface} object.
      */
-    public Surface createPreviewSurface();
+    public SurfaceTexture createPreviewSurface();
 
     /**
      * Updates the transform matrix in {@link com.android.camera.TextureViewHelper}.

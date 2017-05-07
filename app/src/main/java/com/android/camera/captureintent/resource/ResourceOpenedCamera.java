@@ -17,7 +17,7 @@
 package com.android.camera.captureintent.resource;
 
 import android.graphics.PointF;
-import android.view.Surface;
+import android.graphics.SurfaceTexture;
 
 import com.android.camera.async.SafeCloseable;
 import com.android.camera.device.CameraId;
@@ -91,12 +91,12 @@ public interface ResourceOpenedCamera extends SafeCloseable {
     /**
      * Starts preview video on a particular surface.
      *
-     * @param previewSurface A {@link Surface} that the preview
+     * @param previewSurface A {@link SurfaceTexture} that the preview
      *                       will be displayed on.
      * @param captureReadyCallback A {@link OneCamera.CaptureReadyCallback}.
      */
     public void startPreview(
-            Surface previewSurface, OneCamera.CaptureReadyCallback captureReadyCallback);
+            SurfaceTexture previewSurface, OneCamera.CaptureReadyCallback captureReadyCallback);
 
     /**
      * Trigger active focus at a specific point.

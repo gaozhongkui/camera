@@ -18,6 +18,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
+import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
@@ -568,8 +569,8 @@ public class OneCameraZslImpl extends AbstractOneCamera {
     }
 
     @Override
-    public void startPreview(Surface previewSurface, CaptureReadyCallback listener) {
-        mPreviewSurface = previewSurface;
+    public void startPreview(SurfaceTexture previewSurface, CaptureReadyCallback listener) {
+        mPreviewSurface = new Surface(previewSurface);
         setupAsync(mPreviewSurface, listener);
     }
 

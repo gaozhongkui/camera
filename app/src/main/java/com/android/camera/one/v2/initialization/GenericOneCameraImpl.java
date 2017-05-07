@@ -17,6 +17,7 @@
 package com.android.camera.one.v2.initialization;
 
 import android.content.Context;
+import android.graphics.SurfaceTexture;
 import android.view.Surface;
 
 import com.android.camera.async.FilteredCallback;
@@ -147,8 +148,8 @@ class GenericOneCameraImpl implements OneCamera {
     }
 
     @Override
-    public void startPreview(Surface surface, final CaptureReadyCallback listener) {
-        ListenableFuture<Void> result = mPreviewStarter.startPreview(surface);
+    public void startPreview(SurfaceTexture surface, final CaptureReadyCallback listener) {
+        ListenableFuture<Void> result = mPreviewStarter.startPreview(new Surface(surface));
         Futures.addCallback(result, new FutureCallback<Void>() {
             @Override
             public void onSuccess(@Nonnull Void aVoid) {

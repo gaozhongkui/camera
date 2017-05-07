@@ -1439,7 +1439,7 @@ public class CaptureModule extends CameraModule implements
                       });
 
                       // TODO: Consider rolling these two calls into one.
-                      camera.startPreview(new Surface(getPreviewSurfaceTexture()),
+                      camera.startPreview(getPreviewSurfaceTexture(),
                             new CaptureReadyCallback() {
                                 @Override
                                 public void onSetupFailed() {

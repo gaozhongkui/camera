@@ -17,7 +17,7 @@
 package com.android.camera.captureintent.resource;
 
 import android.graphics.PointF;
-import android.view.Surface;
+import android.graphics.SurfaceTexture;
 
 import com.android.camera.async.RefCountBase;
 import com.android.camera.debug.Log;
@@ -131,7 +131,7 @@ public final class ResourceOpenedCameraImpl implements ResourceOpenedCamera {
 
     @Override
     public void startPreview(
-            Surface previewSurface, OneCamera.CaptureReadyCallback captureReadyCallback) {
+            SurfaceTexture previewSurface, OneCamera.CaptureReadyCallback captureReadyCallback) {
         mCamera.startPreview(previewSurface, captureReadyCallback);
     }
 

@@ -79,8 +79,8 @@ public class ResourceSurfaceTextureImpl implements ResourceSurfaceTexture {
     }
 
     @Override
-    public Surface createPreviewSurface() {
-        return new Surface(mSurfaceTexture);
+    public SurfaceTexture createPreviewSurface() {
+        return mSurfaceTexture;
     }
 
     @Override

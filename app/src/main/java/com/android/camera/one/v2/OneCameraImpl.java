@@ -425,8 +425,8 @@ public class OneCameraImpl extends AbstractOneCamera {
     }
 
     @Override
-    public void startPreview(Surface previewSurface, CaptureReadyCallback listener) {
-        mPreviewSurface = previewSurface;
+    public void startPreview(SurfaceTexture previewSurface, CaptureReadyCallback listener) {
+        mPreviewSurface = new Surface(previewSurface);
         setupAsync(mPreviewSurface, listener);
     }
 

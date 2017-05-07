@@ -17,9 +17,9 @@
 package com.android.camera.one;
 
 import android.content.Context;
+import android.graphics.SurfaceTexture;
 import android.location.Location;
 import android.net.Uri;
-import android.view.Surface;
 
 import com.android.camera.session.CaptureSession;
 import com.android.camera.settings.SettingsManager;
@@ -392,7 +392,7 @@ public interface OneCamera {
      * @param surface the surface on which to render preview frames
      * @param listener
      */
-    public void startPreview(Surface surface, CaptureReadyCallback listener);
+    public void startPreview(SurfaceTexture surface, CaptureReadyCallback listener);
 
     /**
      * Closes the camera.
